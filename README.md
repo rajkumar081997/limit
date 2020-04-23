@@ -1,6 +1,6 @@
 # limit
 
-omponents: 1.Server (new_server)
+Components: 1.Server (new_server)
             2.Client (client)
             3.Protocol buffer (server)
             4.Database(Bolt DB) (my.bolt)
