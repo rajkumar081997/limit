@@ -2,32 +2,50 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"log"
-	"bufio"
-	"os"
 
 	pb "github.com/m/v2/server"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	var st string
-	input:=bufio.NewScanner(os.Stdin)
-	for input.Scan(){
-		st=input.Text()
-	}
-	con, err := grpc.Dial("localhost:8081")
+
+	action := flag.String("action", " ", "no_one")
+	input := flag.String("input", " ", "none")
+	flag.Parse()
+
+	con, err := grpc.Dial("localhost:8001", grpc.WithInsecure())
 
 	if err != nil {
 		log.Fatal(err)
 	}
 	clt := pb.NewGetItemClient(con)
-	resp, er := clt.Item(context.Background(), &pb.Store{S: st})
-	if er != nil {
-		log.Fatal(er)
+	switch *action {
+	case "store":
+		rep, er := clt.Item(context.Background(), &pb.Store{S: *input})
+		if er != nil {
+			log.Fatal(er)
+		}
+		fmt.Println(rep.S)
+	case "getid":
+		rept, er := clt.GetId(context.Background(), &pb.Id{K: *input})
+		if er != nil {
+			log.Fatal(er)
+		}
+		fmt.Println(rept.S)
+	case "list":
+		rep, er := clt.List(context.Background(), &pb.Id{K: *input})
+		if er != nil {
+			log.Fatal(er)
+		}
+		fmt.Println(rep.S1)
+	case "rm":
+		rep, er := clt.Remove(context.Background(), &pb.Id{K: *input})
+		if er != nil {
+			log.Fatal(er)
+		}
+		fmt.Println(rep.S)
 	}
-
-	fmt.Println(resp.S)
-
 }
