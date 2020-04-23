@@ -63,8 +63,88 @@ func (m *Store) GetS() string {
 	return ""
 }
 
+type Id struct {
+	K                    string   `protobuf:"bytes,1,opt,name=k,proto3" json:"k,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Id) Reset()         { *m = Id{} }
+func (m *Id) String() string { return proto.CompactTextString(m) }
+func (*Id) ProtoMessage()    {}
+func (*Id) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ad098daeda4239f7, []int{1}
+}
+
+func (m *Id) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Id.Unmarshal(m, b)
+}
+func (m *Id) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Id.Marshal(b, m, deterministic)
+}
+func (m *Id) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Id.Merge(m, src)
+}
+func (m *Id) XXX_Size() int {
+	return xxx_messageInfo_Id.Size(m)
+}
+func (m *Id) XXX_DiscardUnknown() {
+	xxx_messageInfo_Id.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Id proto.InternalMessageInfo
+
+func (m *Id) GetK() string {
+	if m != nil {
+		return m.K
+	}
+	return ""
+}
+
+type Group struct {
+	S1                   []string `protobuf:"bytes,1,rep,name=s1,proto3" json:"s1,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Group) Reset()         { *m = Group{} }
+func (m *Group) String() string { return proto.CompactTextString(m) }
+func (*Group) ProtoMessage()    {}
+func (*Group) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ad098daeda4239f7, []int{2}
+}
+
+func (m *Group) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Group.Unmarshal(m, b)
+}
+func (m *Group) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Group.Marshal(b, m, deterministic)
+}
+func (m *Group) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Group.Merge(m, src)
+}
+func (m *Group) XXX_Size() int {
+	return xxx_messageInfo_Group.Size(m)
+}
+func (m *Group) XXX_DiscardUnknown() {
+	xxx_messageInfo_Group.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Group proto.InternalMessageInfo
+
+func (m *Group) GetS1() []string {
+	if m != nil {
+		return m.S1
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Store)(nil), "Store")
+	proto.RegisterType((*Id)(nil), "Id")
+	proto.RegisterType((*Group)(nil), "Group")
 }
 
 func init() {
@@ -72,13 +152,17 @@ func init() {
 }
 
 var fileDescriptor_ad098daeda4239f7 = []byte{
-	// 89 bytes of a gzipped FileDescriptorProto
+	// 159 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x29, 0x4e, 0x2d, 0x2a,
 	0x4b, 0x2d, 0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x57, 0x12, 0xe5, 0x62, 0x0d, 0x2e, 0xc9, 0x2f,
-	0x4a, 0x15, 0xe2, 0xe1, 0x62, 0x2c, 0x96, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x62, 0x2c, 0x36,
-	0x52, 0xe4, 0x62, 0x77, 0x4f, 0x2d, 0xf1, 0x2c, 0x49, 0xcd, 0x15, 0x12, 0xe3, 0x62, 0x01, 0xd3,
-	0x6c, 0x7a, 0x60, 0x85, 0x52, 0x50, 0x3a, 0x89, 0x0d, 0x6c, 0x80, 0x31, 0x20, 0x00, 0x00, 0xff,
-	0xff, 0x7d, 0xc3, 0xb5, 0xbc, 0x50, 0x00, 0x00, 0x00,
+	0x4a, 0x15, 0xe2, 0xe1, 0x62, 0x2c, 0x96, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x62, 0x2c, 0x56,
+	0x12, 0xe2, 0x62, 0xf2, 0x4c, 0x01, 0x89, 0x65, 0xc3, 0xc4, 0xb2, 0x95, 0xc4, 0xb9, 0x58, 0xdd,
+	0x8b, 0xf2, 0x4b, 0x0b, 0x84, 0xf8, 0xb8, 0x98, 0x8a, 0x0d, 0x81, 0xe2, 0xcc, 0x40, 0x71, 0x20,
+	0xcb, 0x28, 0x99, 0x8b, 0xdd, 0x3d, 0xb5, 0xc4, 0xb3, 0x24, 0x35, 0x57, 0x48, 0x8c, 0x8b, 0x05,
+	0x4c, 0xb3, 0xe9, 0x81, 0x4d, 0x95, 0x82, 0xd2, 0x42, 0x22, 0x40, 0xbd, 0x40, 0x25, 0x29, 0x42,
+	0xcc, 0x7a, 0x9e, 0x29, 0x70, 0x51, 0x61, 0x2e, 0x96, 0x9c, 0xcc, 0xe2, 0x12, 0x98, 0x20, 0xc4,
+	0x74, 0x51, 0x2e, 0xb6, 0xa2, 0xd4, 0xdc, 0xfc, 0xb2, 0x54, 0x14, 0xb5, 0x49, 0x6c, 0x60, 0xf7,
+	0x1a, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x23, 0x8f, 0xb1, 0x3a, 0xbf, 0x00, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -94,6 +178,9 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GetItemClient interface {
 	Item(ctx context.Context, in *Store, opts ...grpc.CallOption) (*Store, error)
+	GetId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Store, error)
+	List(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Group, error)
+	Remove(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Store, error)
 }
 
 type getItemClient struct {
@@ -113,9 +200,39 @@ func (c *getItemClient) Item(ctx context.Context, in *Store, opts ...grpc.CallOp
 	return out, nil
 }
 
+func (c *getItemClient) GetId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Store, error) {
+	out := new(Store)
+	err := c.cc.Invoke(ctx, "/GetItem/GetId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *getItemClient) List(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Group, error) {
+	out := new(Group)
+	err := c.cc.Invoke(ctx, "/GetItem/list", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *getItemClient) Remove(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Store, error) {
+	out := new(Store)
+	err := c.cc.Invoke(ctx, "/GetItem/remove", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GetItemServer is the server API for GetItem service.
 type GetItemServer interface {
 	Item(context.Context, *Store) (*Store, error)
+	GetId(context.Context, *Id) (*Store, error)
+	List(context.Context, *Id) (*Group, error)
+	Remove(context.Context, *Id) (*Store, error)
 }
 
 // UnimplementedGetItemServer can be embedded to have forward compatible implementations.
@@ -124,6 +241,15 @@ type UnimplementedGetItemServer struct {
 
 func (*UnimplementedGetItemServer) Item(ctx context.Context, req *Store) (*Store, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Item not implemented")
+}
+func (*UnimplementedGetItemServer) GetId(ctx context.Context, req *Id) (*Store, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetId not implemented")
+}
+func (*UnimplementedGetItemServer) List(ctx context.Context, req *Id) (*Group, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+func (*UnimplementedGetItemServer) Remove(ctx context.Context, req *Id) (*Store, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Remove not implemented")
 }
 
 func RegisterGetItemServer(s *grpc.Server, srv GetItemServer) {
@@ -148,6 +274,60 @@ func _GetItem_Item_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GetItem_GetId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GetItemServer).GetId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/GetItem/GetId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GetItemServer).GetId(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GetItem_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GetItemServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/GetItem/List",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GetItemServer).List(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GetItem_Remove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GetItemServer).Remove(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/GetItem/Remove",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GetItemServer).Remove(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _GetItem_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "GetItem",
 	HandlerType: (*GetItemServer)(nil),
@@ -155,6 +335,18 @@ var _GetItem_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Item",
 			Handler:    _GetItem_Item_Handler,
+		},
+		{
+			MethodName: "GetId",
+			Handler:    _GetItem_GetId_Handler,
+		},
+		{
+			MethodName: "list",
+			Handler:    _GetItem_List_Handler,
+		},
+		{
+			MethodName: "remove",
+			Handler:    _GetItem_Remove_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
