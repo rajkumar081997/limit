@@ -12,8 +12,9 @@ import (
 	pb "github.com/m/v2/server"
 	"google.golang.org/grpc"
 )
-var path="../my.bolt"
-var mp=map[string]string {}
+
+var path = "../my.bolt"
+var mp = map[string]string{}
 
 type server struct{}
 
@@ -39,9 +40,9 @@ func (s *server) Item(ctx context.Context, request *pb.Store) (*pb.Store, error)
 	}
 
 	defer db.Close()
-	mp[request.S] = strconv.Itoa(rand.Int())
-	key := []byte(mp[request.S])
-	value := []byte(request.S)
+	mp[request.Data] = strconv.Itoa(rand.Int())
+	key := []byte(mp[request.Data])
+	value := []byte(request.Data)
 
 	er = db.Update(func(tx *bolt.Tx) error {
 		bucket, er := tx.CreateBucketIfNotExists(world)
@@ -55,8 +56,8 @@ func (s *server) Item(ctx context.Context, request *pb.Store) (*pb.Store, error)
 		return er
 
 	})
-	sp:="id of data is "+mp[request.S]+" Data Sucessfully Stored"
-	return &pb.Store{S: sp}, nil
+	sp := "id of data is " + mp[request.Data] + " Data Sucessfully Stored"
+	return &pb.Store{Data: sp}, nil
 }
 
 func (s *server) GetId(clt context.Context, req *pb.Id) (*pb.Store, error) {
@@ -69,15 +70,15 @@ func (s *server) GetId(clt context.Context, req *pb.Id) (*pb.Store, error) {
 	var value string
 	er = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket(world)
-		
-		value = string(b.Get([]byte(req.K)))
-		if er!=nil{
+
+		value = string(b.Get([]byte(req.Pick)))
+		if er != nil {
 			log.Println(er)
 		}
 		return er
 	})
 
-	return &pb.Store{S: value}, nil
+	return &pb.Store{Data: value}, nil
 }
 
 func (s *server) List(clt context.Context, req *pb.Id) (*pb.Group, error) {
@@ -86,7 +87,7 @@ func (s *server) List(clt context.Context, req *pb.Id) (*pb.Group, error) {
 		log.Fatal(er)
 	}
 	defer db.Close()
-	count, _ := strconv.Atoi(req.K)
+	count, _ := strconv.Atoi(req.Pick)
 	var s2 []string
 	er = db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket(world)
@@ -108,7 +109,7 @@ func (s *server) List(clt context.Context, req *pb.Id) (*pb.Group, error) {
 
 	})
 
-	return &pb.Group{S1: s2}, nil
+	return &pb.Group{Lst: s2}, nil
 
 }
 
@@ -118,15 +119,15 @@ func (s *server) Remove(clt context.Context, req *pb.Id) (*pb.Store, error) {
 		log.Fatal(er)
 	}
 	defer db.Close()
-	id := req.K
+	id := req.Pick
 
 	er = db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket(world)
 		b.Delete([]byte(id))
-		if er!=nil{
+		if er != nil {
 			log.Println(er)
 		}
 		return er
 	})
-	return &pb.Store{S: "Data Deleted Sucessfully"}, nil
+	return &pb.Store{Data: "Data Deleted Sucessfully"}, nil
 }

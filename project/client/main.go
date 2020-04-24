@@ -24,28 +24,28 @@ func main() {
 	clt := pb.NewGetItemClient(con)
 	switch *action {
 	case "store":
-		rep, er := clt.Item(context.Background(), &pb.Store{S: *input})
+		rep, er := clt.Item(context.Background(), &pb.Store{Data: *input})
 		if er != nil {
 			log.Fatal(er)
 		}
-		fmt.Println(rep.S)
+		fmt.Println(rep.Data)
 	case "getid":
-		rept, er := clt.GetId(context.Background(), &pb.Id{K: *input})
+		rept, er := clt.GetId(context.Background(), &pb.Id{Pick: *input})
 		if er != nil {
 			log.Fatal(er)
 		}
-		fmt.Println(rept.S)
+		fmt.Println(rept.Data)
 	case "list":
-		rep, er := clt.List(context.Background(), &pb.Id{K: *input})
+		rep, er := clt.List(context.Background(), &pb.Id{Pick: *input})
 		if er != nil {
 			log.Fatal(er)
 		}
-		fmt.Println(rep.S1)
+		fmt.Println(rep.Lst)
 	case "rm":
-		rep, er := clt.Remove(context.Background(), &pb.Id{K: *input})
+		rep, er := clt.Remove(context.Background(), &pb.Id{Pick: *input})
 		if er != nil {
 			log.Fatal(er)
 		}
-		fmt.Println(rep.S)
+		fmt.Println(rep.Data)
 	}
 }

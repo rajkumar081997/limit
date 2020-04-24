@@ -1,17 +1,17 @@
-syntax="proto3";
- 
-message Store{
-  string s=1;
- }
+syntax = "proto3"; 
 
-message Id{
-  string k=1;
+message Store {
+  string data = 1;
 }
 
-message Group{
-  repeated string s1=1;
+message Id {
+  string pick = 1;
 }
-service GetItem{
+
+message Group {
+  repeated string lst = 1;
+}
+service GetItem {
   rpc Item(Store) returns(Store);
   rpc GetId(Id)  returns(Store);
   rpc list(Id)  returns(Group);
