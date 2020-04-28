@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var RootCmd = &cobra.Command{
+var rootcmd = &cobra.Command{
 	Use:   "project",
 	Short: "A brief description of your application",
 	Long: `A longer description that spans multiple lines and likely contains
@@ -21,15 +21,15 @@ to quickly create a Cobra application.`,
 
 func Execute() {
 	add := core.Additem()
-	RootCmd.AddCommand(add)
+	rootcmd.AddCommand(add)
 	show := core.Showitem()
-	RootCmd.AddCommand(show)
+	rootcmd.AddCommand(show)
 	list := core.List()
-	RootCmd.AddCommand(list)
+	rootcmd.AddCommand(list)
 	rem := core.Remove()
-	RootCmd.AddCommand(rem)
+	rootcmd.AddCommand(rem)
 
-	if err := RootCmd.Execute(); err != nil {
+	if err := rootcmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
