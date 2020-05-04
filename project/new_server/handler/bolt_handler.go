@@ -1,25 +1,19 @@
 package handler
 
 import (
-	
 	"log"
 	"math/rand"
 	"strconv"
 	"time"
+
 	"github.com/boltdb/bolt"
-	
-	
-
 )
-
-
 
 type Bolt_handler struct {
 	root       string
 	dbname     string
 	bucketname string
 	db         *bolt.DB
-	
 }
 
 func (b *Bolt_handler) Close() error {
@@ -27,23 +21,21 @@ func (b *Bolt_handler) Close() error {
 	return nil
 }
 
-
-
 func Newbolt_handler(s *Bolt_handler) (*Bolt_handler, error) {
-	s.root="../"
-	s.dbname="my.bolt"
-	s.bucketname="world"
+	s.root = "../"
+	s.dbname = "my.bolt"
+	s.bucketname = "world"
 	db, err := bolt.Open(s.root+s.dbname, 0600, &bolt.Options{Timeout: 1 * time.Second})
-	if err!=nil{
+	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	return &Bolt_handler{
-		root:s.root,
-		dbname:s.dbname,
+		root:       s.root,
+		dbname:     s.dbname,
 		bucketname: s.bucketname,
-		db: db,
-		}, err
+		db:         db,
+	}, err
 
 }
 
@@ -60,12 +52,11 @@ func (i *Item) Unmarshal(key []byte) error {
 	return nil
 }
 
-func (s *Bolt_handler) Item(input string)(string,error) {
-   
+func (s *Bolt_handler) Item(input string) (string, error) {
+
 	var i Item
 	key := strconv.Itoa(rand.Int())
 
-	
 	i.Descript = input
 	value, err := i.Marshal()
 	if err != nil {
@@ -73,7 +64,7 @@ func (s *Bolt_handler) Item(input string)(string,error) {
 	}
 
 	s.db.Update(func(tx *bolt.Tx) error {
-        
+
 		bucket, err := tx.CreateBucketIfNotExists([]byte(s.bucketname))
 		if err != nil {
 			log.Fatal(err)
@@ -87,12 +78,12 @@ func (s *Bolt_handler) Item(input string)(string,error) {
 	})
 	var returnstring string = "Data stored Successfully , Id is : "
 	returnstring = returnstring + key
-	return returnstring,err
+	return returnstring, err
 
 }
 
-func (b *Bolt_handler) GetId(input string) (string,error) {
-	
+func (b *Bolt_handler) GetId(input string) (string, error) {
+
 	var i Item
 	var value []byte
 	i.Descript = input
@@ -113,11 +104,11 @@ func (b *Bolt_handler) GetId(input string) (string,error) {
 		log.Fatal(err)
 	}
 
-	return i.Descript,err
+	return i.Descript, err
 }
 
-func (b *Bolt_handler) List(input string ) ([]string,error) {
-	
+func (b *Bolt_handler) List(input string) ([]string, error) {
+
 	numberofItem, _ := strconv.Atoi(input)
 	var stringvalues []string
 
@@ -126,7 +117,7 @@ func (b *Bolt_handler) List(input string ) ([]string,error) {
 
 		iterator := bucket.Cursor()
 		var i int = 0
-		for k,v := iterator.First(); k != nil; k, v = iterator.Next() {
+		for k, v := iterator.First(); k != nil; k, v = iterator.Next() {
 			stringvalues = append(stringvalues, string(v))
 			i++
 			if i == numberofItem {
@@ -137,11 +128,11 @@ func (b *Bolt_handler) List(input string ) ([]string,error) {
 		return nil
 	})
 
-	return stringvalues,nil
+	return stringvalues, nil
 }
 
-func (b *Bolt_handler) Remove(input string) (string,error) {
-	
+func (b *Bolt_handler) Remove(input string) (string, error) {
+
 	var i Item
 	i.Descript = input
 	key, err := i.Marshal()
@@ -156,5 +147,5 @@ func (b *Bolt_handler) Remove(input string) (string,error) {
 		return nil
 	})
 
-	return "Data Deleted Sucessfully",err
+	return "Data Deleted Sucessfully", err
 }

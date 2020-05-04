@@ -31,11 +31,11 @@ func main() {
 	pb.RegisterGetItemServer(ser, &server{st: st})
 	ser.Serve(lis)
 
-	sign:=make(chan os.Signal,2)
-	signal.Notify(sign,os.Interrupt,syscall.SIGTERM)
-	sgn:=<-sign
-	if sgn==syscall.SIGTERM{
-        st.Close()
+	sign := make(chan os.Signal, 2)
+	signal.Notify(sign, os.Interrupt, syscall.SIGTERM)
+	sgn := <-sign
+	if sgn == syscall.SIGTERM {
+		st.Close()
 	}
 
 }
