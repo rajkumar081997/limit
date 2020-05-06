@@ -10,7 +10,7 @@ message Id {
 
 message Group {
   repeated string lst = 1;
-}
+} 
 service GetItem {
   rpc Item(Store) returns(Store);
   rpc GetId(Id)  returns(Store);
